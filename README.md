@@ -81,4 +81,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Disclaimer
 
-This project is not affiliated with, authorized, maintained, sponsored, or endorsed by WhatsApp or any of its affiliates or subsidiaries. This is an independent and unofficial software. Use at your own risk.
+This project is not affiliated with, authorized, maintained, sponsored, or endorsed by WhatsApp or any of its affiliates or subsidiaries. This is an independent and unofficial software. Use at your own risk. Thank you
