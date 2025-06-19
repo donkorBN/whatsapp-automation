@@ -1,4 +1,4 @@
-   import os
+import os
 import re
 import time
 import random
@@ -140,8 +140,7 @@ if 'phone' not in contacts.columns or 'name' not in contacts.columns:
 contacts.drop_duplicates(subset='phone', inplace=True)
 
 message_template = (
-"Hello, good evening {name},I’m AgyemangDev, a computer science student at KNUST, and I’ve got something exciting to share with you. Imagine having access to Netflix and Prime Video in one app, where you can easily switch between them—and the best part? No monthly subscription! Yes, you’ll get to watch all your favorite movies and shows completely free.\n\n"
-"{name}, if this sounds interesting, let me know, and I’ll send you an activation code to get started. It’s simple and fast. By the way, I have your contact saved, so please save mine too—I really value connections. Who knows where help might come from someday? Looking forward to hearing from you, {name}!"
+"Hello {name}, I hope this message finds you well. My name is Nana Asiamah. I wanted to reach out because I organized the LinkedIn webinar last semester that you attended. I've already saved your contact in my phone, and I'd appreciate it if you could save mine as well if you haven't already so we stay connected. Let me know if there's anyway I can help"
 )
 
 if input("Do you want to start from the top? (yes/no): ").strip().lower() == 'yes':
