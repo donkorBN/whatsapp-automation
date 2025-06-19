@@ -65,25 +65,57 @@ def whatsapp_update(driver, phone, message, not_found_file, full_name):
     try:
         print(f"Starting update for {full_name} ({phone})")
         # Search for the contact by phone number
-        search_box = WebDriverWait(driver, 3).until(
+        search_box = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, "//div[@contenteditable='true'][@data-tab='3']"))
         )
         print(f"Search box found. Sending phone number: {phone}")
+        
+        # Clear search box and enter phone number
         search_box.send_keys(Keys.ESCAPE)
         search_box.clear()
         search_box.send_keys(phone)
-        search_box.send_keys(Keys.ENTER)
-
+        time.sleep(2)  # Wait for search results
+        
+        try:
+            # Try to find the contact in search results
+            contact = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.XPATH, f"//span[@title='{phone}']"))
+            )
+            contact.click()
+        except:
+            # If contact not found, try to start a new chat
+            print(f"Contact not found, attempting to start new chat with {phone}")
+            new_chat_button = WebDriverWait(driver, 5).until(
+                EC.element_to_be_clickable((By.XPATH, "//div[@role='button'][@title='New chat']"))
+            )
+            new_chat_button.click()
+            
+            # Enter the phone number in the new chat input
+            new_chat_input = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.XPATH, "//div[@title='Search input textbox']//div[@role='textbox']"))
+            )
+            new_chat_input.send_keys(phone)
+            time.sleep(2)  # Wait for search results
+            
+            # Click on the contact if found
+            try:
+                contact = WebDriverWait(driver, 5).until(
+                    EC.element_to_be_clickable((By.XPATH, f"//span[contains(@title, '{phone}')]"))
+                )
+                contact.click()
+            except:
+                print(f"Could not find contact with number {phone}")
+                with open(not_found_file, 'a', encoding='utf-8') as f:
+                    f.write(f"{full_name}, {phone}\n")
+                return False
+                
         # Wait for the message box to appear
-        WebDriverWait(driver, 5).until(
-            EC.presence_of_element_located((By.XPATH, "//div[@contenteditable='true'][@data-tab='10']"))
-        )
-
-        # Check if the contact exists in the chat
-        if "No chat found" in driver.page_source:
-            with open(not_found_file, 'a', encoding='utf-8') as f:
-                f.write(f"{full_name}, {phone}\n")
-            print(f"Chat not found for {full_name} ({phone})")
+        try:
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//div[@contenteditable='true'][@data-tab='10']"))
+            )
+        except:
+            print(f"Message box not found for {full_name} ({phone})")
             return False
 
         print(f"Message box found for {full_name}. Preparing to send message.")
