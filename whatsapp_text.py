@@ -73,7 +73,7 @@ def whatsapp_update(driver, phone, message, not_found_file, full_name):
             new_chat_button.click()
             print("Clicked new chat button")
         except Exception as e:
-            print(f"Couldn't find new chat button, trying alternative method: {e}")
+            print(f"Couldn't find new chat button, trying plan B: {e}")
             # Alternative method to open new chat
             try:
                 menu_button = WebDriverWait(driver, 10).until(
