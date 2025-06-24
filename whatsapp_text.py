@@ -96,7 +96,7 @@ def whatsapp_update(driver, phone, message, not_found_file, full_name):
             )
             search_input.clear()
             search_input.send_keys(phone)
-            print(f"Entered phone number: {phone}")
+            print(f"Entered number: {phone}")
             time.sleep(2)  # Wait for search results
             
             # Try to find and click the contact
