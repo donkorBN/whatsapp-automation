@@ -71,7 +71,7 @@ def whatsapp_update(driver, phone, message, not_found_file, full_name):
                 EC.element_to_be_clickable((By.XPATH, "//div[@title='New chat']"))
             )
             new_chat_button.click()
-            print("Clicked new chat button")
+            print("Clicked new chat")
         except Exception as e:
             print(f"Couldn't find new chat button, trying plan B: {e}")
             # Alternative method to open new chat
